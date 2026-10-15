@@ -1,0 +1,92 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="framer.css">
+
+        <meta charset="utf-8">
+        <title>Framer</title>
+        <meta name="description" content="Simple website that adds a frame to an image">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <meta property="og:url" content="https://www.chasecarnaroli.com/framer/">
+        <meta property="og:type" content="website">
+        <meta property="og:title" content="Framer">
+        <meta property="og:description" content="Simple website that adds a frame to an image">
+
+        <link rel="preconnect" href="https://fonts.googleapis.com">
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+
+        <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQDWEDSSSD"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-RQDWEDSSSD');
+        </script>
+
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.css" integrity="sha512-w+u2vZqMNUVngx+0GVZYM21Qm093kAexjueWOv9e9nIeYJb1iEfiHC7Y+VvmP/tviQyA5IR32mwN/5hTEJx6Ng==" crossorigin="anonymous" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.9/cropper.min.js" integrity="sha512-9pGiHYK23sqK5Zm0oF45sNBAX/JqbZEP7bSDHyt+nT3GddF+VFIcYNqREt0GDpmFVZI3LZ17Zu9nMMc9iktkCw==" crossorigin="anonymous"></script>
+
+        <script src="./framer.js" defer></script>
+    </head>
+    <body>
+        <div id="navbar">
+            <h1>Vira voto</h1>
+        </div>
+        <div id="content">
+            <div class="instructions">
+                <div class="step-label" data-step="1"><span class="step-num">1</span> Choose a template</div>
+                <div class="step-label" data-step="2"><span class="step-num">2</span> Upload a photo</div>
+                <div class="step-label" data-step="3"><span class="step-num">3</span> Crop your image</div>
+                <div class="step-label" data-step="4"><span class="step-num">4</span> Download</div>
+            </div>
+
+            <section id="step-1" class="wizard-step">
+                <h2>Select a template</h2>
+                <div id="templates" class="templates"></div>
+                <div class="actions">
+                    <button type="button" id="next-template-btn" disabled>Next</button>
+                </div>
+            </section>
+
+            <section id="step-2" class="wizard-step" hidden>
+                <h2>Upload your photo</h2>
+                <div class="select-pic">
+                    <label for="photo-input">Select Photo</label>
+                    <input id="photo-input" type="file" accept="image/*" />
+                    <span id="photo-name" class="photo-name">No photo selected</span>
+                </div>
+                <div class="photo-preview-wrap">
+                    <img id="photo-preview" alt="Selected photo preview" hidden>
+                </div>
+                <div class="actions">
+                    <button type="button" id="back-photo-btn" class="secondary">Back</button>
+                    <button type="button" id="next-photo-btn" disabled>Next</button>
+                </div>
+            </section>
+
+            <section id="step-3" class="wizard-step" hidden>
+                <h2>Crop your photo</h2>
+                <p class="hint">Drag and resize the box so the part you want sits inside the frame.</p>
+                <div class="frame-maker">
+                    <div id="crop-container">
+                        <img id="profile-pic" src="" alt="Photo to crop">
+                    </div>
+                </div>
+                <div class="actions">
+                    <button type="button" id="back-crop-btn" class="secondary">Back</button>
+                    <button type="button" id="finish-btn">Finish</button>
+                </div>
+            </section>
+
+            <section id="step-4" class="wizard-step" hidden>
+                <h2>Your framed photo</h2>
+                <canvas id="framed"></canvas>
+                <div class="actions">
+                    <button type="button" id="restart-btn" class="secondary">Start over</button>
+                    <a id="download-btn" class="button-link" download="vira-voto.png">Download</a>
+                </div>
+            </section>
+        </div>
+    </body>
+</html>
