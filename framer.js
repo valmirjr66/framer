@@ -146,7 +146,7 @@ function loadPhoto(file) {
         preview.src = photoDataUrl;
         preview.hidden = false;
         document.getElementById('dropzone').classList.add('has-photo');
-        document.getElementById('dropzone-cta').textContent = 'Change photo';
+        document.getElementById('dropzone-cta').textContent = 'Trocar foto';
         updateStepButtons();
     };
     reader.readAsDataURL(file);
@@ -155,13 +155,13 @@ function loadPhoto(file) {
 function clearPhoto() {
     photoDataUrl = null;
     document.getElementById('photo-input').value = '';
-    document.getElementById('photo-name').textContent = 'No photo selected';
+    document.getElementById('photo-name').textContent = 'Nenhuma foto selecionada';
     const preview = document.getElementById('photo-preview');
     preview.hidden = true;
     preview.removeAttribute('src');
     const dropzone = document.getElementById('dropzone');
     dropzone.classList.remove('has-photo', 'dragging');
-    document.getElementById('dropzone-cta').textContent = 'Select photo';
+    document.getElementById('dropzone-cta').textContent = 'Selecionar foto';
     updateStepButtons();
 }
 

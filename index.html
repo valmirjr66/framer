@@ -4,14 +4,14 @@
 
         <meta charset="utf-8">
         <title>Framer</title>
-        <meta name="description" content="Simple website that adds a frame to an image">
+        <meta name="description" content="Site simples que adiciona uma moldura a uma imagem">
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <meta name="theme-color" content="#FA0404">
 
         <meta property="og:url" content="https://www.chasecarnaroli.com/framer/">
         <meta property="og:type" content="website">
         <meta property="og:title" content="Framer">
-        <meta property="og:description" content="Simple website that adds a frame to an image">
+        <meta property="og:description" content="Site simples que adiciona uma moldura a uma imagem">
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -37,60 +37,60 @@
         </div>
         <div id="content">
             <div class="instructions">
-                <div class="step-label" data-step="1"><span class="step-num">1</span> Choose a template</div>
-                <div class="step-label" data-step="2"><span class="step-num">2</span> Upload a photo</div>
-                <div class="step-label" data-step="3"><span class="step-num">3</span> Crop your image</div>
-                <div class="step-label" data-step="4"><span class="step-num">4</span> Download</div>
+                <div class="step-label" data-step="1"><span class="step-num">1</span> Escolha um modelo</div>
+                <div class="step-label" data-step="2"><span class="step-num">2</span> Envie uma foto</div>
+                <div class="step-label" data-step="3"><span class="step-num">3</span> Recorte sua imagem</div>
+                <div class="step-label" data-step="4"><span class="step-num">4</span> Baixar</div>
             </div>
 
             <section id="step-1" class="wizard-step">
-                <h2>Select a template</h2>
+                <h2>Selecione um modelo</h2>
                 <div id="templates" class="templates"></div>
                 <div class="actions">
-                    <button type="button" id="next-template-btn" disabled>Next</button>
+                    <button type="button" id="next-template-btn" disabled>Próximo</button>
                 </div>
             </section>
 
             <section id="step-2" class="wizard-step" hidden>
-                <h2>Upload your photo</h2>
-                <p class="chosen-template">Frame: <strong id="chosen-template-name">—</strong></p>
+                <h2>Envie sua foto</h2>
+                <p class="chosen-template">Moldura: <strong id="chosen-template-name">—</strong></p>
                 <label id="dropzone" for="photo-input">
                     <svg class="dropzone-star" viewBox="0 0 24 24" aria-hidden="true">
                         <path d="M12 1.5l2.93 7.04 7.6.61-5.79 4.96 1.77 7.39L12 17.5l-6.51 3.99 1.77-7.39L1.47 9.15l7.6-.61z"/>
                     </svg>
-                    <span id="dropzone-title" class="dropzone-title">Drag your photo here</span>
-                    <img id="photo-preview" alt="Selected photo preview" hidden>
-                    <span id="dropzone-cta" class="dropzone-cta">Select photo</span>
-                    <span class="dropzone-sub">JPG, PNG or WEBP — square photos work best</span>
+                    <span id="dropzone-title" class="dropzone-title">Arraste sua foto aqui</span>
+                    <img id="photo-preview" alt="Pré-visualização da foto selecionada" hidden>
+                    <span id="dropzone-cta" class="dropzone-cta">Selecionar foto</span>
+                    <span class="dropzone-sub">JPG, PNG ou WEBP — fotos quadradas funcionam melhor</span>
                     <input id="photo-input" type="file" accept="image/*" />
                 </label>
-                <p id="photo-name" class="photo-name">No photo selected</p>
+                <p id="photo-name" class="photo-name">Nenhuma foto selecionada</p>
                 <div class="actions">
-                    <button type="button" id="back-photo-btn" class="secondary">Back</button>
-                    <button type="button" id="next-photo-btn" disabled>Next</button>
+                    <button type="button" id="back-photo-btn" class="secondary">Voltar</button>
+                    <button type="button" id="next-photo-btn" disabled>Próximo</button>
                 </div>
             </section>
 
             <section id="step-3" class="wizard-step" hidden>
-                <h2>Crop your photo</h2>
-                <p class="hint">Drag and resize the box so the part you want sits inside the frame.</p>
+                <h2>Recorte sua foto</h2>
+                <p class="hint">Arraste e redimensione a caixa para que a parte desejada fique dentro da moldura.</p>
                 <div class="frame-maker">
                     <div id="crop-container">
-                        <img id="profile-pic" src="" alt="Photo to crop">
+                        <img id="profile-pic" src="" alt="Foto para recortar">
                     </div>
                 </div>
                 <div class="actions">
-                    <button type="button" id="back-crop-btn" class="secondary">Back</button>
-                    <button type="button" id="finish-btn">Finish</button>
+                    <button type="button" id="back-crop-btn" class="secondary">Voltar</button>
+                    <button type="button" id="finish-btn">Concluir</button>
                 </div>
             </section>
 
             <section id="step-4" class="wizard-step" hidden>
-                <h2>Your framed photo</h2>
+                <h2>Sua foto com moldura</h2>
                 <canvas id="framed"></canvas>
                 <div class="actions">
-                    <button type="button" id="restart-btn" class="secondary">Start over</button>
-                    <a id="download-btn" class="button-link" download="vira-voto.png">Download</a>
+                    <button type="button" id="restart-btn" class="secondary">Recomeçar</button>
+                    <a id="download-btn" class="button-link" download="vira-voto.png">Baixar</a>
                 </div>
             </section>
         </div>
