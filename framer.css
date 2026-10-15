@@ -1,56 +1,129 @@
+:root {
+    --red: #FA0404;
+    --green: #02B824;
+    --yellow: #FBD401;
+    --blue: #0034D0;
+    --paper: #FFFFFF;
+    --ink: #111111;
+    --muted: #6b6b6b;
+    --bg: #F5F5F5;
+    --slant: -8deg;
+}
+
+html {
+    height: 100%;
+}
+
+/* The whole app lives in one viewport: navbar on top, step fills the rest */
 body {
     margin: 0;
     font-family: 'Montserrat', sans-serif;
-    background: #f6f7f4;
-    color: #1b1b1b;
+    background: var(--bg);
+    color: var(--ink);
+    height: 100vh;
+    height: 100svh;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+}
+
+/* Display type: heavy condensed caps, slanted — the wordmark voice */
+h1,
+h2,
+.step-label,
+.dropzone-title,
+.dropzone-cta,
+button,
+.button-link,
+.template-card span {
+    font-family: 'Anton', 'Montserrat', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+    font-weight: 400;
 }
 
 #navbar {
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
     align-items: center;
-    padding: 0 16px;
-    background-color: darkseagreen;
+    gap: 12px;
+    flex: 0 0 auto;
+    padding: clamp(8px, 1.8vh, 18px) 16px clamp(6px, 1.4vh, 14px);
+    background-color: var(--red);
+    border-bottom: clamp(5px, 1vh, 10px) solid var(--ink);
+    overflow: hidden;
+}
+
+#navbar #logo {
+    height: clamp(28px, 6vh, 44px);
+    width: auto;
+    flex-shrink: 0;
 }
 
 h1 {
-    font-size: 2.5rem;
-    margin: 1rem;
+    font-size: clamp(1.5rem, 1rem + 2.8vw, 2.5rem);
+    line-height: 1;
+    margin: 0;
+    color: var(--paper);
+    transform: skewX(var(--slant));
+    text-shadow: 4px 4px 0 rgba(17, 17, 17, 0.35);
+}
+
+/* Tricolor rule under the bar, echoing the flag blocks in the mark */
+#navbar::after {
+    content: '';
+    flex: 1;
+    height: clamp(10px, 2.4vh, 18px);
+    margin-left: 8px;
+    transform: skewX(var(--slant));
+    background: linear-gradient(
+        to right,
+        var(--green) 0 33.33%,
+        var(--yellow) 33.33% 66.66%,
+        var(--blue) 66.66% 100%
+    );
 }
 
 h2 {
     text-align: center;
-    font-size: 1.25rem;
-    margin: 0 0 16px;
+    font-size: clamp(1.1rem, 0.9rem + 1.4vh, 1.6rem);
+    margin: 0 0 clamp(8px, 1.8vh, 20px);
+    transform: skewX(var(--slant));
+    flex: 0 0 auto;
 }
 
 #content {
-    display: block;
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
     max-width: 960px;
     margin: 0 auto;
-    padding: 24px 16px 48px;
+    padding: clamp(12px, 2.4vh, 28px) 16px clamp(14px, 2.6vh, 28px);
+    box-sizing: border-box;
 }
 
 .instructions {
     display: flex;
-    align-items: center;
+    align-items: stretch;
     justify-content: center;
-    gap: 8px;
-    margin: 0 auto 28px auto;
-    font-size: 0.95rem;
+    gap: 10px;
+    flex: 0 0 auto;
+    margin: 0 auto clamp(10px, 2.4vh, 32px) auto;
+    font-size: clamp(0.7rem, 0.45rem + 0.9vw, 0.95rem);
 }
 
 .step-num {
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    width: 1.6em;
-    height: 1.6em;
-    margin-right: 8px;
-    border-radius: 50%;
-    border: 2px solid currentColor;
-    font-weight: 700;
+    width: 2em;
+    height: 2em;
+    margin-right: 10px;
+    background: var(--paper);
+    border: 3px solid currentColor;
+    font-size: 0.9em;
     flex-shrink: 0;
 }
 
@@ -60,16 +133,42 @@ h2 {
     display: flex;
     align-items: center;
     justify-content: center;
-    color: #777;
+    padding: 8px;
+    color: var(--muted);
+    transform: skewX(var(--slant));
+}
+
+.step-label > * {
+    transform: skewX(calc(var(--slant) * -1));
 }
 
 .step-label.active {
-    color: #1a4d2e;
-    font-weight: 700;
+    color: var(--paper);
+    background: var(--red);
+    box-shadow: 5px 5px 0 var(--ink);
+}
+
+.step-label.active .step-num {
+    color: var(--red);
+    border-color: var(--paper);
 }
 
 .step-label.done {
-    color: #2f6b45;
+    color: var(--paper);
+    background: var(--green);
+}
+
+.step-label.done .step-num {
+    color: var(--green);
+    border-color: var(--paper);
+}
+
+/* One step is visible at a time and it owns the leftover height */
+.wizard-step {
+    flex: 1 1 auto;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
 }
 
 .wizard-step[hidden] {
@@ -79,108 +178,223 @@ h2 {
 .templates {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: 16px;
-    margin-bottom: 8px;
+    grid-template-rows: 1fr;
+    gap: clamp(8px, 1.6vw, 18px);
+    flex: 1 1 auto;
+    min-height: 0;
+    /* Cards hug their contents and sit centred in the leftover space */
+    align-items: center;
 }
 
 .template-card {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 10px;
-    padding: 12px;
-    border: 3px solid #ddd;
-    border-radius: 12px;
-    background: #fff;
+    justify-content: center;
+    gap: clamp(6px, 1.4vh, 12px);
+    padding: clamp(6px, 1.2vw, 12px);
+    border: 4px solid var(--ink);
+    background: var(--paper);
+    color: var(--ink);
     cursor: pointer;
-    font-family: inherit;
-    font-size: 1rem;
-    font-weight: 600;
+    font-size: clamp(0.8rem, 0.6rem + 0.8vw, 1.05rem);
+    transform: none;
+    box-shadow: 6px 6px 0 rgba(17, 17, 17, 0.18);
+    min-width: 0;
+    min-height: 0;
+    max-height: 100%;
+    overflow: hidden;
+}
+
+/* Cards are <button>s — opt out of the slab press effect */
+.template-card:active {
+    transform: none;
+    box-shadow: 6px 6px 0 var(--red);
+}
+
+.template-card span {
+    transform: skewX(var(--slant));
+    flex: 0 0 auto;
 }
 
 .template-card:hover {
-    border-color: #9bbf9b;
+    box-shadow: 6px 6px 0 var(--yellow);
 }
 
 .template-card.selected {
-    border-color: #1a4d2e;
-    box-shadow: 0 0 0 3px rgba(26, 77, 46, 0.2);
+    border-color: var(--red);
+    box-shadow: 6px 6px 0 var(--red);
 }
 
+/* Square previews fill the card width, but never more height than the
+   viewport can spare once the navbar, steps and buttons have taken theirs */
 .template-preview {
-    width: 100%;
-    height: auto;
-    border-radius: 6px;
     display: block;
+    width: min(100%, 34svh);
+    height: auto;
+    aspect-ratio: 1;
 }
 
-.select-pic {
+.chosen-template {
+    text-align: center;
+    margin: 0 0 clamp(8px, 1.6vh, 20px);
+    color: var(--muted);
+    font-weight: 600;
+    font-size: 0.9rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    flex: 0 0 auto;
+}
+
+.chosen-template strong {
+    color: var(--ink);
+}
+
+#dropzone {
     display: flex;
-    justify-content: center;
+    flex-direction: column;
     align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
+    justify-content: center;
+    gap: clamp(8px, 1.6vh, 14px);
+    width: 100%;
+    max-width: 560px;
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0 auto;
+    padding: clamp(12px, 2.4vh, 32px) clamp(14px, 3vw, 24px);
+    box-sizing: border-box;
+    background: var(--paper);
+    border: 5px dashed var(--ink);
+    cursor: pointer;
+    box-shadow: 10px 10px 0 var(--yellow);
+    text-align: center;
+}
+
+#dropzone.dragging {
+    border-color: var(--red);
+    border-style: solid;
+    box-shadow: 10px 10px 0 var(--red);
+}
+
+.dropzone-star {
+    width: clamp(30px, 7vh, 56px);
+    height: clamp(30px, 7vh, 56px);
+    flex: 0 0 auto;
+    fill: var(--red);
+}
+
+.dropzone-title {
+    font-size: clamp(1rem, 0.8rem + 1.2vh, 1.5rem);
+    flex: 0 0 auto;
+}
+
+.dropzone-sub {
+    color: var(--muted);
+    font-weight: 600;
+    font-size: clamp(0.7rem, 0.6rem + 0.3vw, 0.85rem);
+    flex: 0 0 auto;
+}
+
+/* Once a photo is in, the zone becomes its preview */
+#dropzone.has-photo .dropzone-star,
+#dropzone.has-photo .dropzone-title {
+    display: none;
 }
 
 input[type="file"] {
     display: none;
 }
 
-.select-pic label,
+.dropzone-cta,
 button,
 .button-link {
-    border: 1px solid #1a4d2e;
-    background: #1a4d2e;
-    color: #fff;
+    border: 0;
+    background: var(--red);
+    color: var(--paper);
     display: inline-block;
-    padding: 10px 16px;
+    padding: clamp(8px, 1.6vh, 12px) clamp(14px, 3vw, 22px);
     cursor: pointer;
-    min-width: 150px;
+    min-width: clamp(110px, 30vw, 160px);
     text-align: center;
-    border-radius: 8px;
-    font-family: inherit;
-    font-size: 1rem;
+    font-size: clamp(0.85rem, 0.7rem + 0.7vh, 1.05rem);
     text-decoration: none;
     box-sizing: border-box;
+    transform: skewX(var(--slant));
+    box-shadow: 6px 6px 0 var(--ink);
+}
+
+.dropzone-cta {
+    flex: 0 0 auto;
+}
+
+#dropzone:hover .dropzone-cta,
+button:hover:not(:disabled),
+.button-link:hover {
+    box-shadow: 6px 6px 0 var(--yellow);
+}
+
+button:active:not(:disabled),
+.button-link:active {
+    transform: skewX(var(--slant)) translate(3px, 3px);
+    box-shadow: 3px 3px 0 var(--ink);
+}
+
+#download-btn {
+    background: var(--green);
 }
 
 button.secondary {
-    background: #fff;
-    color: #1a4d2e;
+    background: var(--paper);
+    color: var(--ink);
+    box-shadow: 6px 6px 0 var(--blue);
 }
 
 button:disabled {
-    opacity: 0.45;
+    background: #c9c9c9;
+    box-shadow: 6px 6px 0 rgba(17, 17, 17, 0.2);
     cursor: not-allowed;
 }
 
 .photo-name {
-    color: #555;
-}
-
-.photo-preview-wrap {
-    display: flex;
-    justify-content: center;
-    margin-top: 16px;
+    text-align: center;
+    margin: clamp(8px, 1.6vh, 16px) 0 0;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: clamp(0.75rem, 0.65rem + 0.3vw, 1rem);
+    flex: 0 0 auto;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 #photo-preview {
-    max-height: 180px;
-    max-width: 280px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+    flex: 0 1 auto;
+    min-height: 0;
+    width: auto;
+    height: auto;
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+    border: 4px solid var(--ink);
+    box-sizing: border-box;
 }
 
 .hint {
     text-align: center;
-    color: #555;
-    margin: 0 0 16px;
+    color: var(--muted);
+    font-weight: 600;
+    font-size: clamp(0.75rem, 0.65rem + 0.4vw, 1rem);
+    margin: 0 0 clamp(8px, 1.6vh, 16px);
+    flex: 0 0 auto;
 }
 
 .frame-maker {
     display: flex;
-    margin: 8px 0 12px;
+    flex: 1 1 auto;
+    min-height: 0;
+    margin: 0;
     justify-content: center;
+    align-items: center;
 }
 
 #profile-pic {
@@ -188,43 +402,105 @@ button:disabled {
     max-width: 100%;
 }
 
-#framed {
-    margin: 0 auto 24px;
-    width: min(100%, 520px);
-    height: auto;
-    display: block;
-    border: 1px solid #ccc;
-    background: #fff;
+/* Cropper.js measures this box's offsetWidth/offsetHeight at init, while the
+   photo inside it is briefly visible — so both axes must be definite here, or
+   a tall photo sizes the box and it overflows the step. */
+#crop-container {
+    height: 100%;
+    width: auto;
+    aspect-ratio: 1;
+    max-width: 100%;
+    min-width: 0;
+    min-height: 0;
+    margin: 0 auto;
+    border: 4px solid var(--ink);
+    box-sizing: border-box;
 }
 
-#crop-container {
-    width: min(100%, 400px);
-    margin: auto;
+#framed {
+    margin: 0 auto;
+    width: auto;
+    height: auto;
+    max-width: min(100%, 520px);
+    min-height: 0;
+    aspect-ratio: 1;
+    flex: 0 1 auto;
+    align-self: center;
+    display: block;
+    border: 4px solid var(--ink);
+    box-shadow: 10px 10px 0 var(--red);
+    background: var(--paper);
+    box-sizing: border-box;
 }
 
 .actions {
     display: flex;
     justify-content: center;
-    gap: 12px;
-    margin-top: 24px;
+    align-items: center;
+    gap: clamp(10px, 2vw, 18px);
+    flex: 0 0 auto;
+    margin-top: clamp(12px, 2.4vh, 28px);
 }
 
 @media (max-width: 700px) {
-    h1 {
-        font-size: 1.75rem;
+    #navbar::after {
+        display: none;
     }
 
     .instructions {
-        flex-direction: column;
-        align-items: stretch;
+        gap: 6px;
     }
 
     .step-label {
-        width: 100%;
-        justify-content: flex-start;
+        padding: 6px 4px;
     }
 
-    .templates {
-        grid-template-columns: 1fr;
+    .step-num {
+        margin-right: 6px;
+    }
+
+    .actions {
+        flex-wrap: wrap;
+    }
+
+    /* Narrow screens run out of width before height, so drive the square from
+       the width — the same value on both axes, capped so it clears the
+       buttons. Both definite, so nothing here depends on the photo's shape. */
+    #crop-container {
+        width: min(100vw - 32px, 46svh);
+        height: min(100vw - 32px, 46svh);
+    }
+}
+
+/* Too narrow for step names — numbered chips carry the progress on their own.
+   font-size: 0 collapses the label text nodes without touching the markup. */
+@media (max-width: 560px) {
+    .step-label {
+        font-size: 0;
+        width: auto;
+    }
+
+    .step-num {
+        font-size: 0.9rem;
+        margin-right: 0;
+    }
+}
+
+/* Landscape phones: every vertical pixel counts */
+@media (max-height: 520px) {
+    .step-label {
+        font-size: 0;
+        width: auto;
+    }
+
+    .step-num {
+        font-size: 0.8rem;
+        margin-right: 0;
+    }
+
+    .dropzone-sub,
+    .photo-name,
+    .chosen-template {
+        display: none;
     }
 }

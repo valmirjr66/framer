@@ -6,6 +6,7 @@
         <title>Framer</title>
         <meta name="description" content="Simple website that adds a frame to an image">
         <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#FA0404">
 
         <meta property="og:url" content="https://www.chasecarnaroli.com/framer/">
         <meta property="og:type" content="website">
@@ -14,7 +15,7 @@
 
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Anton&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
 
         <script async src="https://www.googletagmanager.com/gtag/js?id=G-RQDWEDSSSD"></script>
         <script>
@@ -31,6 +32,7 @@
     </head>
     <body>
         <div id="navbar">
+            <img id="logo" src="assets/logo.png" alt="Lula 13 Presidente">
             <h1>Vira voto</h1>
         </div>
         <div id="content">
@@ -51,14 +53,18 @@
 
             <section id="step-2" class="wizard-step" hidden>
                 <h2>Upload your photo</h2>
-                <div class="select-pic">
-                    <label for="photo-input">Select Photo</label>
-                    <input id="photo-input" type="file" accept="image/*" />
-                    <span id="photo-name" class="photo-name">No photo selected</span>
-                </div>
-                <div class="photo-preview-wrap">
+                <p class="chosen-template">Frame: <strong id="chosen-template-name">—</strong></p>
+                <label id="dropzone" for="photo-input">
+                    <svg class="dropzone-star" viewBox="0 0 24 24" aria-hidden="true">
+                        <path d="M12 1.5l2.93 7.04 7.6.61-5.79 4.96 1.77 7.39L12 17.5l-6.51 3.99 1.77-7.39L1.47 9.15l7.6-.61z"/>
+                    </svg>
+                    <span id="dropzone-title" class="dropzone-title">Drag your photo here</span>
                     <img id="photo-preview" alt="Selected photo preview" hidden>
-                </div>
+                    <span id="dropzone-cta" class="dropzone-cta">Select photo</span>
+                    <span class="dropzone-sub">JPG, PNG or WEBP — square photos work best</span>
+                    <input id="photo-input" type="file" accept="image/*" />
+                </label>
+                <p id="photo-name" class="photo-name">No photo selected</p>
                 <div class="actions">
                     <button type="button" id="back-photo-btn" class="secondary">Back</button>
                     <button type="button" id="next-photo-btn" disabled>Next</button>
