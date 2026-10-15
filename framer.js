@@ -50,6 +50,7 @@ window.onload = async () => {
     document.getElementById('next-photo-btn').addEventListener('click', goToCrop);
     document.getElementById('back-crop-btn').addEventListener('click', goToPhoto);
     document.getElementById('finish-btn').addEventListener('click', goToFinish);
+    document.getElementById('back-finish-btn').addEventListener('click', goToCrop);
     document.getElementById('restart-btn').addEventListener('click', startOver);
     setActiveStep(1);
 };
