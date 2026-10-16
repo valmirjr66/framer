@@ -178,12 +178,18 @@ h2 {
 .templates {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    grid-template-rows: 1fr;
     gap: clamp(8px, 1.6vw, 18px);
     flex: 1 1 auto;
     min-height: 0;
-    /* Cards hug their contents and sit centred in the leftover space */
-    align-items: center;
+    /* The row sizes to its tallest card, then sits centred in the leftover
+       space — align-items stretches the shorter cards to match it, so all
+       three share one height regardless of label wrapping */
+    align-content: center;
+    align-items: stretch;
+    justify-items: center;
+    /* Lets .template-preview size against this grid's width instead of its
+       own fit-content card, which would otherwise be a circular reference */
+    container-type: inline-size;
 }
 
 .template-card {
@@ -200,6 +206,7 @@ h2 {
     font-size: clamp(0.8rem, 0.6rem + 0.8vw, 1.05rem);
     transform: none;
     box-shadow: 6px 6px 0 rgba(17, 17, 17, 0.18);
+    width: fit-content;
     min-width: 0;
     min-height: 0;
     max-height: 100%;
@@ -230,7 +237,7 @@ h2 {
    viewport can spare once the navbar, steps and buttons have taken theirs */
 .template-preview {
     display: block;
-    width: min(100%, 34svh);
+    width: min(30cqw, 34svh);
     height: auto;
     aspect-ratio: 1;
 }
