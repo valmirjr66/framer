@@ -212,18 +212,6 @@ h2 {
     box-shadow: 6px 6px 0 var(--red);
 }
 
-.template-card:nth-child(3n+1) {
-    background: var(--red);
-    color: var(--paper);
-}
-.template-card:nth-child(3n+2) {
-    background: var(--yellow);
-}
-.template-card:nth-child(3n+3) {
-    background: var(--green);
-    color: var(--paper);
-}
-
 .template-card span {
     transform: skewX(var(--slant));
     flex: 0 0 auto;
